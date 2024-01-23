@@ -1100,17 +1100,17 @@
 
 // --------------------------------
 
-var obj = {
-    a:1,
-    b:2,
-    c:3,
-    *[Symbol.iterator](){
-        for (let key of Object.keys(this)) {
-            yield this[key];
-        }
-    }
-};
-console.log([...obj]);
+// var obj = {
+//     a:1,
+//     b:2,
+//     c:3,
+//     *[Symbol.iterator](){
+//         for (let key of Object.keys(this)) {
+//             yield this[key];
+//         }
+//     }
+// };
+// console.log([...obj]);
 
 
 
@@ -1166,4 +1166,335 @@ console.log([...obj]);
 
 
 // ========= Regular Expressions ========= // 
+
+// ------ Look Ahead & Behind --------- //
+
+// var msg = "Hello World";
+
+// console.log(msg.match(/(l.)/g));
+
+// console.log(msg.match(/(l.)$/g));
+
+// console.log(msg.match(/(l.)(?=o)/g));
+
+// console.log(msg.match(/(l.)(?!o)/g));
+
+
+
+// ---------------------------------------
+
+// var msg = "Hello World";
+
+// console.log(msg.match(/(?<=e)(l.)/g));
+
+// console.log(msg.match(/(?<!e)(l.)/g));
+
+
+
+
+
+
+
+// ------- Named Capture Groups -------- //
+
+// var msg = "Hello World";
+
+// console.log(msg.match(/.(l.)/));
+
+// console.log(msg.match(/([jkl])o Wor\1/));
+
+// console.log(msg.match(/(?<cap>l.)/).groups);
+
+// console.log(msg.match(/(?<cap>[jkl])o Wor\k<cap>/));
+
+
+
+// console.log(msg.replace(/(?<cap>l.)/g,"-$<cap>"));
+
+// console.log(msg.replace(/(?<cap>l.)/g,function re(...args){
+//     var[,,,,{ cap }] = args;
+//     return cap.toUpperCase();
+// }));
+
+
+
+
+
+// -------- dotall Mode -------- //
+
+// var msg = `The quick brown for jumps over the lazy dog`;
+
+// console.log(msg.match(/brown.*over/));
+
+// console.log(msg.match(/brown.*over/s));
+
+
+
+
+
+// --------- Regex Exercise ---------- //
+
+// function *powers(poen) {
+//     var re = /(?<=power of )(?<thing>(?:a )\w+).*?(?<=can ) (?<verb>\w+)/gs;
+//     var match;
+//     while(match = re.exec(poem)){
+//         let {
+//             groups:{
+//                 thing,
+//                 verb
+//             }
+//         } = match;
+//         yield `${thing}: ${verb}`;
+//     }
+// }
+
+// var poem = `
+// The power of a gun can kill
+// and the power of fire can burn
+// the power of wind can chill
+// and the power of a mind can learn
+// the power of anger can rage
+// inside until it tears u apart
+// but the power of a smile
+// especially yours can heal a frozen heart`;
+
+// for (let power of powers(poem)) {
+//     console.log(power);
+// }
+
+// // a gun: kill
+// // fire: burn
+// // wind: chill
+// // a mind: learn
+// // anger: rage
+// // smile: heal
+
+
+// // console panding -------
+
+
+
+
+
+
+
+
+
+// // ========== Async Await =========== //
+
+// // ------- Async Function ------- //
+
+// runner(function *main() {
+//     var user = yield fetchCurrentUser();
+
+//     var[ archiveOders, currentUser] =
+//         yield Promise.all([
+//             fetchArchivedOrders( user.id),
+//             fetchCurrentOrders(user.id)
+//         ]);
+
+//         // ... 
+// });  // ------------ sync-async (with generators)
+
+
+
+
+// // --------------------------------
+
+// async function main() {
+//     var user = await fetchCurrentUser();
+
+//     var[ archiveOders, currentUser] =
+//         yield Promise.all([
+//             fetchArchivedOrders( user.id),
+//             fetchCurrentOrders(user.id)
+//         ]);
+
+//         // ... 
+// };
+// main();  // ----------- async function 
+
+
+
+
+
+
+
+// -------- Async Await Exercise ----- Solution---- // 
+
+// function getFile(file){
+//     return new Promise(function(resolve){
+//         fakeAjax(file, resolve);
+//     });
+// }
+
+// async function loadFiles(files){
+//     //~~~ request all files concurrently
+
+//     var prs = files.map(getFile);
+
+//     // for(let pr of prs){
+//     //     console.log(await pr);
+//     // }
+
+//     prs.forEach(function output(pr){
+//         console.log(await pr);
+//     })
+
+// }
+
+// loadFiles(["file1", "file2", "file3"]);
+
+
+// // **********************************
+
+// function fakeAjax(url, cb){
+//     var fake_responses = {
+//         "file1": "The first text",
+//         "file2": "The middle text",
+//     }
+// }
+
+
+
+
+
+
+// --------- Async iteration ---------- //
+// ><
+
+// async function fetchFiles(files) {
+//     var prs = files.map(getFile);
+
+//     prs.forEach(function each(pr){
+//         console.log( await pr);
+//     } );
+// } // ------- async FP iterations 
+
+// ----- ---- --- ----- ----- ---------------- 
+
+// async function fetchFiles(files) {
+//     var prs = await FA.concurrent.map(getFile, files);
+
+//     await FA.seral.forEach(async function each(pr) {
+//         console.log(await pr);
+//     }, prs);
+// } // ------ fasy: better async FP iterations 
+
+
+
+
+// --------- Asyns Function Problems -------- // 
+ 
+// var token = new CAF.cancelToken();
+
+// var main = CAF(function *main(signal, url){
+//     var resp = yield fetch( url, { signal});
+
+//     return resp;
+// });
+
+// main(token.signal, "http://some.tld/other")
+// .then(onResponse, onCancelOrError );
+
+// setTimeout(function onElapsed(){
+//     token.abort("Request took too long");
+// },5000); // ------------ cancelable async functions 
+
+
+// --------------------------------------------------
+
+// var timeoutToken = CAF.timeout( 5000, "Took too long!");
+
+// var main = CAF( function *main(signal,url){
+//     var resp = yield fetch(url,{signal});
+
+//     return resp;
+// });
+
+// main(timeoutToken, "http://some.tld/other")
+// .then(onResponse, onCancelOrError);
+
+
+
+
+
+// ---------- Async Generators with yield ---------- //
+
+// async function fetchURLs(urls) {
+//     var results = [];
+
+//     for (let url of urls) {
+//         let resp = await fetch( url );
+//         if(resp.status == 200){
+//             let text = await resp.text();
+//             results.push(text.toUpperCase());
+//         }
+//         else {
+//             results.push(undefined);
+//         }
+//     }
+//     return results;
+// }
+
+
+
+// ----------------------------------- overloaded yield 
+
+// function *fetchURLs(urls){
+//     for(let url of urls){
+//         let resp = yield fetch(url);
+//         if(resp.status == 200){
+//             let text = yield resp.text();
+//             yield text.toUpperCase();
+//         }
+//         else {
+//             yield undefined;
+//         }
+//     }
+// }
+
+
+
+
+// --------  Async Generators iteration ------ //
+
+// async function *fetchURLs(urls){
+//     var prs = urls.map(fetch);
+
+//     for(let pr of prs){
+//         let resp = await pr;
+//         if(resp.status == 200){
+//             let text = await resp.text();
+//             yield text.toUpperCase();
+//         }
+//         else {
+//             yield undefined;
+//         }
+//     }
+// }  // ---- async generators: upfront
+
+
+
+
+// ---------------------------------------------
+
+// async function main(favoriteSites){
+//     var it = fetchURLs(favoriteSites);
+
+//     while(true){
+//         let res = await it.next();
+//         if(res.done) break;
+//         let text = res.value;
+
+//         console.log(text);
+//     }
+// } // --- horray 
+
+// async function main(favoriteSites){
+//     for await(let text of fetchURLs(favoriteSites)){
+//         console.log(text);
+//     }
+// }
+
 
