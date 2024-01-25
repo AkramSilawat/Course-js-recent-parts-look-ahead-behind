@@ -122,19 +122,19 @@
 
 // Let`s run outer again //
 
-function  outer () {
-    let counter = 0;
-    function incrementCount(){
-        counter ++;
-    }
-    return incrementCount;
-}
+// function  outer () {
+//     let counter = 0;
+//     function incrementCount(){
+//         counter ++;
+//     }
+//     return incrementCount;
+// }
 
-const myNewFunction = outer();
-console.log(myNewFunction());
-myNewFunction();
+// const myNewFunction = outer();
+// console.log(myNewFunction());
+// myNewFunction();
 
-const anotherFunction = outer();
+// const anotherFunction = outer();
 
-console.log(anotherFunction());
-anotherFunction();
+// console.log(anotherFunction());
+// anotherFunction();
