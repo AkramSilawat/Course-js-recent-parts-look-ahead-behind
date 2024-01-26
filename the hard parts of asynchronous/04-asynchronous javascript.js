@@ -1,3 +1,4 @@
+// (git status)  (git add .)  (git commit -m " " )  git push
 
 // ------- Single Threaded Execution ------- //
 
@@ -121,6 +122,25 @@
 
 
 // -------- Callback Queue & Event Loop Q&A --------- //
+
+// --->>> We're interacting with a world outside of javaScript now - so we need rules <<<--- //
+
+
+// function printHello() { console.log("Hello"); }
+
+// function blockFor1sec(){ 
+//     // blocks in the javascript thread for 1 sec
+// }
+
+// setTimeout(printHello,0);
+
+// blockFor1sec();
+// console.log("Me first");
+
+
+
+
+// -------- Callback Hell & Async Exercises --------- //
 
 // --->>> We're interacting with a world outside of javaScript now - so we need rules <<<--- //
 
