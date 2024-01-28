@@ -1,3 +1,22 @@
+// ======== introduction ========= //
+
+// What to focus on in the workshop
+
+// - Analytical Problem solving
+
+// - Technical communication
+
+// - Engineering approach
+
+// - Non-technical communication
+
+// - JavaScript and programming experience
+
+
+
+
+
+
 
 // ========= Object Dot Notation ========== //
 
@@ -213,6 +232,7 @@
 
 // =========== new keyword example ========== //
 
+// The new keyword automates a lot of our manual word 
 
 // function userCreator(name, score) {
 //     this.name = name;
@@ -225,3 +245,21 @@
 // const user1 = new userCreator("Eva", 9)
 
 // user1.increment()
+
+
+
+
+// ============= class Keyword ============= //
+
+// // solution 4: the class 'syntatic sugar'
+
+// class userCreator {
+//     constructor(name, score) {
+//         this.name = name;
+//         this.score = score;
+//     }
+//     increment() { this.score++; }
+//     login() { console.log("login"); }
+// }
+
+// const user1 = new userCreator("Eva", 9);
