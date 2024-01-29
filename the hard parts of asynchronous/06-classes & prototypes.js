@@ -1,3 +1,5 @@
+// (git status)  (git add .)  (git commit -m " " )  git push
+
 // ======== introduction ========= //
 
 // What to focus on in the workshop
