@@ -84,4 +84,4 @@ return the next element */
 // console.log(element1) // 4
 // console.log(element2) // 5
 // console.log(element3) // 6
-// console.log(element4) // undefined
+// console.log(element4) // undefined!
